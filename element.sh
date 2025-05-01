@@ -2,9 +2,7 @@
 echo "Please provide an element as an argument."
 PSQL="psql --username=freecodecamp --dbname=periodic_table -t --no-align -c"
 SQL=''
-
-if [[ $1 =~ ^[0-9]+$ ]]; then
-  SQL="select 
+SQL1="select 
 	types.type, 
 	properties.atomic_number, 
 	properties.atomic_mass, 
@@ -14,12 +12,14 @@ if [[ $1 =~ ^[0-9]+$ ]]; then
 	elements.name 
   from 
 	properties  
-  inner join types on types.type_id = properties.type_id \
-  inner join elements on elements.atomic_number = properties.atomic_number where properties.atomic_number = $1;"
-#elif [[ $1 =~ ^$ ]]; then
-#  SQL="SELECT * FROM properties;"
-#elif [[  ]]; then
-#  SQL="SELECT * FROM properties;"
+  inner join types on types.type_id = properties.type_id 
+  inner join elements on elements.atomic_number = properties.atomic_number"
+
+
+if [[ $1 =~ ^[0-9]+$ ]]; then
+  SQL2=" where properties.atomic_number = $1;"
+  SQL="$SQL1 $SQL2"
+
 #else
 #  SQL="SELECT * FROM properties;"
 fi

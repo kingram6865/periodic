@@ -22,7 +22,9 @@ if [[ $1 =~ ^[0-9]+$ ]]; then
 elif [[ -n "$1" ]] && [[ ${#1} -eq "2" ]]; then
   SQL2=" where elements.symbol = '$1';"
   SQL="$SQL1 $SQL2"
-
+elif [[ -n "$1" ]] && [[ ${#1} -gt "2" ]]; then
+  SQL2=" where elements.name = '$1';"
+  SQL="$SQL1 $SQL2"
 #else
 #  SQL="SELECT * FROM properties;"
 fi

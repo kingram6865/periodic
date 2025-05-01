@@ -19,6 +19,9 @@ SQL1="select
 if [[ $1 =~ ^[0-9]+$ ]]; then
   SQL2=" where properties.atomic_number = $1;"
   SQL="$SQL1 $SQL2"
+elif [[ -n "$1" ]] && [[ ${#1} -eq "2" ]]; then
+  SQL2=" where elements.symbol = '$1';"
+  SQL="$SQL1 $SQL2"
 
 #else
 #  SQL="SELECT * FROM properties;"

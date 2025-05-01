@@ -30,4 +30,9 @@ elif [[ -n "$1" ]] && [[ ${#1} -gt "2" ]]; then
 fi
 
 RESULT=$($PSQL "$SQL")
-echo "$RESULT" | awk -F'|' '{print "The element with atomic number " $2 " is " $7 " (" $6 "). It''''s a " $1 " with a mass of " $3 " amu. " $7 " has a melting point of " $4 " celsius and a boiling point of " $5 " celsius."}'
+
+if [[ -z "$RESULT" ]]; then
+  echo "I could not find that element in the database."
+else
+  echo "$RESULT" | awk -F'|' '{print "The element with atomic number " $2 " is " $7 " (" $6 "). It''''s a " $1 " with a mass of " $3 " amu. " $7 " has a melting point of " $4 " celsius and a boiling point of " $5 " celsius."}'
+fi
